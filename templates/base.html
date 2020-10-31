@@ -20,17 +20,24 @@
 </head>
 <body>
     {% block navbar %}{% endblock navbar%}
-
-    <div class="container">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
         <div class="row">
-            <div class="col-md-8">
-                {% block content %}{% endblock content%}
-            </div>
-            <div class="col-md-4">
-                display random quotes here
-            </div>
-        </div>
-    </div>
+            <div class="col"></div>
+            <div class="col">  <div class="alert alert-success" role="alert">
+                {{ message }}
+              </div></div>
+            <div class="col"></div>
+          </div>
+      
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock content%}
     
 
 

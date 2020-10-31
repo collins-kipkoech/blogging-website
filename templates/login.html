@@ -1,22 +1,41 @@
 {% extends 'base.html' %}
 {%block content%}
-<form method="POST" action="{{ url_for('auth.login') }}">
-  {{ form.csrf_token }}
-  <label>
+<div class="container">
+    <div class="row">
+        <div class="col pl-3 pr-3">
+            <form method="POST" action="">
+                {{ form.csrf_token }}
+                <label>
+              
+                  <p class="label-txt">ENTER YOUR USERNAME</p><br>
+                  <input type="text" name="username" class="input"><br>
+                  <div class="line-box">
+                    <div class="line"></div>
+                  </div>
+                </label>
+                <label>
+                  <p class="label-txt">ENTER YOUR PASSWORD</p><br>
+                  <input type="password" name="password" class="input"><br>
+                  <div class="line-box">
+                    <div class="line"></div>
+                  </div>
+                </label>
+                <label class="form-check">
+                    {{form.remember}}
+                    {{form.remember.label}}
+                </label>
+                <button type="submit">submit</button>
 
-    <p class="label-txt">ENTER YOUR NAME</p>
-    <input type="text" name="username" class="input">
-    <div class="line-box">
-      <div class="line"></div>
+                <small class="text-muted ml-3">
+                    <a href="#">Forgot password?</a>
+                </small>
+              </form>
+              <div class="border-top pt-3">
+                <small class="text-muted">
+                    Register an account here <a href="{{ url_for('register')}}">Register</a>
+                </small>
+            </div>
+        </div>
     </div>
-  </label>
-  <label>
-    <p class="label-txt">ENTER YOUR PASSWORD</p>
-    <input type="password" name="password" class="input">
-    <div class="line-box">
-      <div class="line"></div>
-    </div>
-  </label>
-  <button type="submit">submit</button>
-</form>
+</div>
   {%endblock %}

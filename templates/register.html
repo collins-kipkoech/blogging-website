@@ -1,14 +1,7 @@
 {% extends 'base.html' %}
 {%block content%}
-<form method="POST" action="{{ url_for('auth.register') }}">
+<form method="POST" action="">
   {{ form.csrf_token }}
-  <label>
-    <p class="label-txt">ENTER YOUR EMAIL</p>
-    <input name="email" type="email" class="input">
-    <div class="line-box">
-      <div class="line"></div>
-    </div>
-  </label>
   <label>
     <p class="label-txt">ENTER YOUR NAME</p>
     <input type="text" name="username" class="input">
@@ -16,6 +9,14 @@
       <div class="line"></div>
     </div>
   </label>
+  <label>
+    <p class="label-txt">ENTER YOUR EMAIL</p>
+    <input name="email" type="email" class="input">
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+ 
   <label>
     <p class="label-txt">ENTER YOUR PASSWORD</p>
     <input type="password" name="password" class="input">
@@ -32,4 +33,9 @@
   </label>
   <button type="submit">submit</button>
 </form>
+<div class="border-top pt-3">
+    <small class="text-muted">
+        Already have an account? <a href="{{ url_for('login')}}">Login</a>
+    </small>
+</div>
   {%endblock %}
