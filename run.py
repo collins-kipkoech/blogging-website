@@ -28,11 +28,15 @@ def index():
 
 @app.route('/register')
 def register():
-    return render_template('register.html')
+    form = RegistrationForm()
+    title = 'Registration form'
+    return render_template('register.html',title=title,form=form)
 
 @app.route('/login')
 def login():
-    return render_template('login.html')
+    form = LoginForm()
+    title = 'Login Here'
+    return render_template('login.html',form=form,title=title)
 
 
 if __name__ == '__main__':

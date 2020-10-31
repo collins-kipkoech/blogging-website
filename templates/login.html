@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{%block content%}
+<form method="POST" action="{{ url_for('auth.login') }}">
+  {{ form.csrf_token }}
+  <label>
+
+    <p class="label-txt">ENTER YOUR NAME</p>
+    <input type="text" name="username" class="input">
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+  <label>
+    <p class="label-txt">ENTER YOUR PASSWORD</p>
+    <input type="password" name="password" class="input">
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+  <button type="submit">submit</button>
+</form>
+  {%endblock %}
