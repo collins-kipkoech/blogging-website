@@ -1,29 +1,16 @@
 from flask import Flask, render_template,url_for, flash,redirect
 from flask_sqlalchemy import SQLAlchemy
 from forms import RegistrationForm, LoginForm
-from datetime import datetime
+
 
 app = Flask(__name__)
-
 app.config['SECRET_KEY'] = '1b8ab4fce6816adf29e1438f26da19bd'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 
-class User(db.model):
-    id = db.Column(db.Integer,primary_key=True)
-    username = db.Column(db.String(80),unique=True,nullable=False)
-    password = db.Column(db.String(20),nullable=False)
-    profile_pic = db.Column(db.String(50),nullable=False,default='avatar.jpg')
+from models import User, Post
 
 
-    def __repr__(self):
-        return f"User('{self.username}','{self.email}','{self.profile_pic}')"
-
-
-class Post(db.model):
-    id = db.Column(db.Integer,primary_key=True)
-    title = db.Column(db.String(80),nullable=False)
-    date_posted = db.Column(db.DateTime,nullable=False,default=datetime.utcnow)
 
 
 
