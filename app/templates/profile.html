@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% block styles%}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/quotes.css')}}">
+{% endblock %}
+{% block content %}
+<div class="container emp-profile">
+    <div class="row">
+        <div class="col-6">
+            <div class="profile-img">
+                {% if current_user.profile_pic_path %}
+
+                <img src="{{url_for('static',filename=current_user.profile_pic_path)}}" alt="" class="img-thumbnail">
+            
+                {%else%}
+                <img style="height: 250px; width: 300px;" src="/static/photos/avatar.png" alt="avatar"/>
+            
+                {% endif %}
+            
+            </div>
+        </div>
+       
+        <div class="col-2">
+          
+
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLongTitle">Update Profile</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
+        </div>
+    </div>
+  
+
+<div class="row">
+   <div class="col-2">
+
+   </div>
+   <div class="col-12">
+    <div class="profile-head">
+        
+                <h5>
+                    {{current_user.username}}
+                </h5>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About me</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#timeline" role="tab" aria-controls="profile" aria-selected="false">My Timeline</a>
+                    </li>
+                   <li>
+                    <button type="button" class="btn btn-primary profile-edit-btn"  data-toggle="modal" data-target="#exampleModalCenter">
+                      Edit Profile
+                     </button>
+                   </li>
+                  </ul>
+                  <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="jumbotron jumbotron-fluid">
+                            <div class="container">
+                                <h5>
+                                    username:{{current_user.username}}<br>
+                                    Email:{{current_user.email}}
+                                    
+                                </h5>
+                                <h4>Bio <span><i class="fas fa-hand-point-down"></i></span></h4>
+                                <blockquote style="margin-left: 2%;" class="blockquote d-flex justify-content-left">
+                                    <p class="mb-0">{{current_user.about_me}}</p>
+                                </blockquote>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="tab-pane fade" id="timeline" role="tabpanel" aria-labelledby="profile-tab">
+                            {%for post in posts%}
+                            <blockquote class="quote-card">
+                              <p>
+                                {{post.content}} 
+                              </p>
+                        
+                              <cite> <span><p>Title:{{post.title}}</p></span>
+                                
+                              </cite>
+                              <p>
+                                <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample{{pitch.id}}" role="button" aria-expanded="false" aria-controls="collapseExample{{pitch.id}}">
+                                  Add Comment
+                                </a>
+                               
+                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseComments{{pitch.id}}" aria-expanded="false" aria-controls="collapseComments">
+                                  view Comments
+                                </button>
+                              </p>
+                              <div class="collapse" id="collapseExample{{pitch.id}}">
+                                <div class="card card-body">
+                                  <form action="{{ url_for('comment',id=pitch.id) }}" method="get">
+                                    <input style="padding: 3px;margin: 3px;" placeholder="Write comment" class="form-control" type="text" name="comment">
+                                    <div class="row">
+                                      <div class="col"></div>
+                                      <div class="col">
+                                        <button class="form-control" type="submit">Send&nbsp;&nbsp;&nbsp;<i class="fas fa-paper-plane"></i></button>
+                    
+                                      </div>
+                                      <div class="col"></div>
+                                    </div>
+                                  </form>                
+                                </div>
+                              </div>
+                              <div class="collapse" id="collapseComments{{pitch.id}}">
+                                <div class="card card-body">
+                                  <ul class="list-group">
+                    
+                                  {%for comment in comments%}
+                                  
+                                    
+                                  {% if comment.post==post.id%}
+                                  <li class="list-group-item"> {{comment.text}}</li>
+                    
+                                 
+                                  {%endif%}
+                                  {%endfor%}
+                                </ul>
+                    
+                                </div>
+                              </div>
+                            </blockquote>
+                            {%endfor%}
+                    </div>
+                  </div>
+    </div>
+</div>
+<div class="col-2"></div>
+</div>
+</div>
+{% endblock %}

@@ -1,4 +1,4 @@
-from flask import render_template,url_for, flash,redirect
+from flask import render_template,url_for, flash,redirect, request
 from app import app,db,bcrypt
 from app.forms import RegistrationForm, LoginForm
 from app.models import User, Post
@@ -72,6 +72,6 @@ def logout():
 @app.route('/profile')
 @login_required
 def profile():
-    title = 'Profile'
-    return render_template('profile.html',title=title)
+    
+    return render_template('profile.html')
 
