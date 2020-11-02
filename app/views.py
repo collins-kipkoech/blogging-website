@@ -1,6 +1,6 @@
 from flask import render_template,url_for, flash,redirect, request
 from app import app,db,bcrypt
-from app.forms import RegistrationForm, LoginForm
+from app.forms import RegistrationForm, LoginForm, UpdateProfileForm
 from app.models import User, Post
 from flask_login import current_user, login_user, logout_user,login_required
 
@@ -72,6 +72,8 @@ def logout():
 @app.route('/profile')
 @login_required
 def profile():
+    form = UpdateProfileForm()
     
-    return render_template('profile.html')
+    
+    return render_template('profile.html',form=form)
 
