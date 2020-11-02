@@ -7,24 +7,9 @@ from flask_login import current_user, login_user, logout_user,login_required
 
 
 
-posts = [
-    {
-        'author':'collins',
-        'title':'football',
-        'content':'i love football',
-        'date_posted':'nov 2020'
-    },
-    {
-        'author':'kipkoech',
-        'title':'coding',
-        'content':'i love coding',
-        'date_posted':'nov 2020'
-    }
-]
-
-
 @app.route('/')
 def index():
+    posts = Post.query.all()
     title = 'Blogging Website'
     return render_template('index.html',posts=posts,title=title)
 
@@ -103,10 +88,20 @@ def profile():
 
 @app.route('/post',methods=['GET','POST'])
 @login_required
-def post():
-    post = PostForm()
+def view_post():
+    form = PostForm()
     if form.validate_on_submit():
+        post = Post(title=form.title.data,content=form.content.data,author=current_user)
+        db.session.add(post)
+        db.session.commit()
         flash('Post created successfully','success')
         return redirect(url_for('index'))
-    return render_template('post.html',post=post)
+    return render_template('post.html',form=form)
+
+
+@pp.route('post1/int:post_id')
+def post1(post_id):
+    post = Post.query.get(post_id)
+    return render_template('post1.html',post=post)
+
 
