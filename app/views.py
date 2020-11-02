@@ -54,7 +54,9 @@ def login():
         if user is None or not bcrypt.check_password_hash(user.password,form.password.data):
             flash('Login unsuccessful. Please check your username and password','danger')
             return redirect(url_for('login'))
-        login_user(user, remember=form.remember.data)
+        else:
+            login_user(user, remember=form.remember.data)
+            flash('Login successfully','success')
         return redirect(url_for('index'))
 
         
@@ -69,11 +71,24 @@ def logout():
     return redirect(url_for('index')) 
 
 
-@app.route('/profile')
+@app.route('/profile', methods=['GET','POST'])
 @login_required
 def profile():
+    """
+    function to display and update user profile
+    """
     form = UpdateProfileForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data        
+        current_user.email = form.email.data
+        
+        db.session.commit()
+        flash('Your changes have been saved.','success')
+        return redirect(url_for('profile'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+        
     
-    
-    return render_template('profile.html',form=form)
+    return render_template('profile.html',title='Edit Profile',form=form)
 

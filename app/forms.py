@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
+from flask_wtf.file import FileField, FileAllowed
 from app.models import User
 from flask_login import current_user
 
@@ -34,6 +35,7 @@ class LoginForm(FlaskForm):
 class UpdateProfileForm(FlaskForm):
     username = StringField('username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
+    
     
     submit = SubmitField('Update')
 
