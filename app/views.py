@@ -67,3 +67,11 @@ def logout():
     """
     logout_user()
     return redirect(url_for('index')) 
+
+
+@app.route('/profile')
+@login_required
+def profile():
+    title = 'Profile'
+    return render_template('profile.html',title=title)
+
