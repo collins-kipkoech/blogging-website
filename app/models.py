@@ -2,8 +2,7 @@
 from datetime import datetime
 from app import db, login_manager
 from flask_login import UserMixin
-
-from werkzeug.security import generate_password_hash,check_password_hash
+ 
 
 
 @login_manager.user_loader
@@ -22,17 +21,9 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(80),unique=True,nullable=False)
     email = db.Column(db.String(100),unique=True,nullable=False)
     image_file = db.Column(db.String(50),nullable=False,default='avatar.jpg')
-    password_secure = db.Column(db.String(20),nullable=False)
+    password = db.Column(db.String(20),nullable=False)
    
     posts = db.relationship('Post',backref='author',lazy=True)
-
-    def set_password(self, password):
-        self.pass_secure = generate_password_hash(password)
-
-
-    def verify_password(self,password):
-        return check_password_hash(self.pass_secure,password)
-
 
     def __repr__(self):
         return f"User('{self.username}','{self.email}','{self.image_file}')"
@@ -42,7 +33,6 @@ class Post(db.Model):
     """
     id, title, content, date_posted, user_id
     """
-    
 
     id = db.Column(db.Integer,primary_key=True)
     title = db.Column(db.String(80),nullable=False)

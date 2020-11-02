@@ -29,6 +29,8 @@ def index():
 
 @app.route('/register', methods=['GET','POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     form = RegistrationForm()
     title = 'Registration form'
 
@@ -43,11 +45,13 @@ def register():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     form = LoginForm()
     title = 'Login Here'
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.verify_password(form.password.data):
+        if user is None or not bcrypt.check_password_hash(user.password,form.password.data):
             flash('Login unsuccessful. Please check your username and password','danger')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember.data)
@@ -55,3 +59,11 @@ def login():
 
         
     return render_template('login.html',form=form,title=title)
+
+@app.route('/logout')
+def logout():
+    """
+    function to logout the user and redirects to the homepage
+    """
+    logout_user()
+    return redirect(url_for('index')) 
