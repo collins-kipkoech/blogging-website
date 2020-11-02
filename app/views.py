@@ -1,8 +1,10 @@
 from flask import render_template,url_for, flash,redirect, request
 from app import app,db,bcrypt
-from app.forms import RegistrationForm, LoginForm, UpdateProfileForm
+from app.forms import RegistrationForm, LoginForm, UpdateProfileForm, PostForm
 from app.models import User, Post
 from flask_login import current_user, login_user, logout_user,login_required
+
+
 
 
 posts = [
@@ -70,6 +72,12 @@ def logout():
     logout_user()
     return redirect(url_for('index')) 
 
+@app.route('/post',methods=['GET','POST'])
+@login_required
+def post():
+    post = PostForm()
+    return render_template('post.html',post=post)
+
 
 @app.route('/profile', methods=['GET','POST'])
 @login_required
@@ -79,8 +87,10 @@ def profile():
     """
     form = UpdateProfileForm()
     if form.validate_on_submit():
+
         current_user.username = form.username.data        
         current_user.email = form.email.data
+        
         
         db.session.commit()
         flash('Your changes have been saved.','success')
