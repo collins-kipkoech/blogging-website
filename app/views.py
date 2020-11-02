@@ -72,11 +72,7 @@ def logout():
     logout_user()
     return redirect(url_for('index')) 
 
-@app.route('/post',methods=['GET','POST'])
-@login_required
-def post():
-    post = PostForm()
-    return render_template('post.html',post=post)
+
 
 
 @app.route('/profile', methods=['GET','POST'])
@@ -87,7 +83,6 @@ def profile():
     """
     form = UpdateProfileForm()
     if form.validate_on_submit():
-
         current_user.username = form.username.data        
         current_user.email = form.email.data
         
@@ -101,4 +96,17 @@ def profile():
         
     
     return render_template('profile.html',title='Edit Profile',form=form)
+
+
+
+
+
+@app.route('/post',methods=['GET','POST'])
+@login_required
+def post():
+    post = PostForm()
+    if form.validate_on_submit():
+        flash('Post created successfully','success')
+        return redirect(url_for('index'))
+    return render_template('post.html',post=post)
 
