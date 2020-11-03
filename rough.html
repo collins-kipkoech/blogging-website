@@ -1,0 +1,21 @@
+<div class="login">
+    <div class="login-triangle"></div>
+    
+    <h2 class="login-header">Sign in</h2>
+  
+    <form class="login-container" method="POST" action="">
+        {{ form.csrf_token }}
+      <p><input type="text" name="username" placeholder="Email"></p>
+      <p><input type="password" name="password" placeholder="Password"></p>
+      <label class="form-check">
+        {{form.remember}}
+        {{form.remember.label}}
+    </label><br>
+      <p><input type="submit" value="Log in"></p>
+    </form>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Register an account here <a href="{{ url_for('register')}}">Register</a>
+        </small>
+    </div>
+  </div>

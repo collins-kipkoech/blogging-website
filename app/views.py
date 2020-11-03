@@ -1,6 +1,6 @@
 from flask import render_template,url_for, flash,redirect, request
 from app import app,db,bcrypt
-from app.forms import RegistrationForm, LoginForm, UpdateProfileForm, PostForm
+from app.forms import RegistrationForm, LoginForm, UpdateProfileForm, PostForm, UpdatePostForm
 from app.models import User, Post
 from flask_login import current_user, login_user, logout_user,login_required
 
@@ -9,7 +9,7 @@ from flask_login import current_user, login_user, logout_user,login_required
 
 @app.route('/')
 def index():
-    posts = Post.query.all()
+    posts = Post.query.order_by(Post.date_posted.desc())
     title = 'Blogging Website'
     return render_template('index.html',posts=posts,title=title)
 
@@ -99,9 +99,27 @@ def view_post():
     return render_template('post.html',form=form)
 
 
-@pp.route('post1/int:post_id')
-def post1(post_id):
-    post = Post.query.get(post_id)
-    return render_template('post1.html',post=post)
+@app.route('/update_post', methods=['GET','POST'])
+@login_required
+def update_post():
+    """
+    function to update existing post
+    """
+    form = UpdatePostForm()
+    if form.validate_on_submit():
+        current_user.title = form.title.data        
+        current_user.content = form.content.data
+        
+        
+        db.session.commit()
+        flash('Your changes have been saved.','success')
+        return redirect(url_for('index'))
+    elif request.method == 'GET':
+        form.title.data = current_user.title
+        form.content.data = current_user.content
+        
+    
+    return render_template('post.html',title='Edit Post',form=form)
+
 
 

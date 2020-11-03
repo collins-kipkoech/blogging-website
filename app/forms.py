@@ -57,3 +57,21 @@ class PostForm(FlaskForm):
     content = TextAreaField('Content',validators=[DataRequired()])
     submit = SubmitField('Post')
 
+
+class UpdatePostForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    content = TextAreaField('Content', validators=[DataRequired()])
+    
+    
+    submit = SubmitField('Update')
+
+    def validate_title(self, title):
+        if title.data != current_user.title:
+            title = User.query.filter_by(title=title.data).first()
+            
+
+    def validate_content(self, content):
+        if content.data != current_user.content:
+            content = User.query.filter_by(content=content.data).first()
+            
+

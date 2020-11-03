@@ -1,41 +1,40 @@
 {% extends 'base.html' %}
 {%block content%}
-<form method="POST" action="">
-  {{ form.csrf_token }}
-  <label>
-    <p class="label-txt">ENTER YOUR NAME</p>
-    <input type="text" name="username" class="input">
-    <div class="line-box">
-      <div class="line"></div>
-    </div>
-  </label>
-  <label>
-    <p class="label-txt">ENTER YOUR EMAIL</p>
-    <input name="email" type="email" class="input">
-    <div class="line-box">
-      <div class="line"></div>
-    </div>
-  </label>
- 
-  <label>
-    <p class="label-txt">ENTER YOUR PASSWORD</p>
-    <input type="password" name="password" class="input">
-    <div class="line-box">
-      <div class="line"></div>
-    </div>
-  </label>
-  <label>
-    <p class="label-txt">CONFIRM YOUR PASSWORD</p>
-    <input type="password" name="confirm_password" class="input">
-    <div class="line-box">
-      <div class="line"></div>
-    </div>
-  </label>
-  <button type="submit">submit</button>
-</form>
-<div class="border-top pt-3">
-    <small class="text-muted">
-        Already have an account? <a href="{{ url_for('login')}}">Login</a>
-    </small>
+<div class="container pt-3">
+  <div class="row justify-content-center">
+  <div class="col-md-5">
+   <div class="card">
+     <h2 class="card-title text-center">Register</h2>
+      <div class="card-body py-md-4">
+       <form method="POST" action="" _lpchecked="1">
+          {{ form.csrf_token }}
+          <div class="form-group">
+             <input type="text" class="form-control" name="username" placeholder="username">
+        </div>
+        <div class="form-group">
+             <input type="email" class="form-control" name="email" placeholder="Email">
+                            </div>
+                            
+                          
+   <div class="form-group">
+     <input type="password" class="form-control" name="password" placeholder="Password">
+   </div>
+   <div class="form-group">
+      <input type="password" class="form-control" name="confirm_password" placeholder="confirm_password">
+   </div>
+   <div class="d-flex flex-row align-items-center justify-content-between">
+      
+          <button class="btn btn-primary">Create Account</button>
+          </div>
+       </form>
+       <div class="border-top pt-3">
+          <small class="text-muted">
+              Already have an account? <a href="{{ url_for('login')}}">Login</a>
+          </small>
+      </div>
+     </div>
+  </div>
+</div>
+</div>
 </div>
   {%endblock %}

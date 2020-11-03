@@ -22,9 +22,6 @@
        
         <div class="col-2">
           
-
-
-
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered" role="document">
   <div class="modal-content">
@@ -59,8 +56,7 @@
   </div>
 </div>
 </div>
-        </div>
-    </div>
+        
   
 
 <div class="row">
@@ -95,10 +91,7 @@
                                     Email:{{current_user.email}}
                                     
                                 </h5>
-                                <h4>Bio <span><i class="fas fa-hand-point-down"></i></span></h4>
-                                <blockquote style="margin-left: 2%;" class="blockquote d-flex justify-content-left">
-                                    <p class="mb-0">{{current_user.about_me}}</p>
-                                </blockquote>
+                                
                             </div>
                           </div>
                     </div>
@@ -113,17 +106,17 @@
                                 
                               </cite>
                               <p>
-                                <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample{{pitch.id}}" role="button" aria-expanded="false" aria-controls="collapseExample{{pitch.id}}">
+                                <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample{{post.id}}" role="button" aria-expanded="false" aria-controls="collapseExample{{post.id}}">
                                   Add Comment
                                 </a>
                                
-                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseComments{{pitch.id}}" aria-expanded="false" aria-controls="collapseComments">
+                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseComments{{post.id}}" aria-expanded="false" aria-controls="collapseComments">
                                   view Comments
                                 </button>
                               </p>
-                              <div class="collapse" id="collapseExample{{pitch.id}}">
+                              <div class="collapse" id="collapseExample{{post.id}}">
                                 <div class="card card-body">
-                                  <form action="{{ url_for('comment',id=pitch.id) }}" method="get">
+                                  <form action="{{ url_for('comment',id=post.id) }}" method="get">
                                     <input style="padding: 3px;margin: 3px;" placeholder="Write comment" class="form-control" type="text" name="comment">
                                     <div class="row">
                                       <div class="col"></div>
@@ -136,7 +129,7 @@
                                   </form>                
                                 </div>
                               </div>
-                              <div class="collapse" id="collapseComments{{pitch.id}}">
+                              <div class="collapse" id="collapseComments{{post.id}}">
                                 <div class="card card-body">
                                   <ul class="list-group">
                     

@@ -4,38 +4,28 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8 pl-3 pr-3">
-          <form method="POST" action="">
-              {{ form.csrf_token }}
-              <label>
+          <div class="login">
+            <div class="login-triangle"></div>
             
-                <p class="label-txt">ENTER YOUR USERNAME</p><br>
-                <input type="text" name="username" class="input"><br>
-                <div class="line-box">
-                  <div class="line"></div>
-                </div>
-              </label>
-              <label><br>
-                <p class="label-txt">ENTER YOUR PASSWORD</p><br>
-                <input type="password" name="password" class="input"><br>
-                <div class="line-box">
-                  <div class="line"></div>
-                </div>
-              </label><br>
+            <h2 class="login-header">Sign in</h2>
+          
+            <form class="login-container" method="POST" action="">
+                {{ form.csrf_token }}
+              <p><input type="text" name="username" placeholder="Email"></p>
+              <p><input type="password" name="password" placeholder="Password"></p>
               <label class="form-check">
-                  {{form.remember}}
-                  {{form.remember.label}}
-              </label><br>
-              <button type="submit">submit</button>
-
-              <small class="text-muted ml-3">
-                  <a href="#">Forgot password?</a>
-              </small>
+                {{form.remember}}
+                {{form.remember.label}}
+            </label><br>
+              <p><input type="submit" value="Log in"></p>
             </form>
             <div class="border-top pt-3">
-              <small class="text-muted">
-                  Register an account here <a href="{{ url_for('register')}}">Register</a>
-              </small>
+                <small class="text-muted">
+                    Register an account here <a href="{{ url_for('register')}}">Register</a>
+                </small>
+            </div>
           </div>
+            
       </div>
         <div class="col-md-2"></div>
     </div>
