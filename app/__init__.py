@@ -25,6 +25,7 @@ def create_app(config_name):
     login_manager.init_app(app)
     migrate.init_app(app)
     bcrypt.init_app(app)
+    mail.init_app(app)
 
     #register blueprint
     from app.main import main as main_blueprint

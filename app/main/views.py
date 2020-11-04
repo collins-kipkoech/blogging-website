@@ -4,6 +4,7 @@ from . import main
 from .forms import RegistrationForm, LoginForm, UpdateProfileForm, PostForm, UpdatePostForm
 from app.models import User, Post,Comment
 from flask_login import current_user, login_user, logout_user,login_required
+from ..email import mail_message
 
 
 
@@ -29,7 +30,7 @@ def register():
         db.session.commit()
 
         flash('Congratulations, you are now a registered user!')
-        # mail_message("Welcome to PicthesHub","email/welcome_user",user.email,user=user)
+        mail_message("Welcome to PicthesHub","email/welcome_user",user.email,user=user)
 
         return redirect(url_for('.login'))
     return render_template("register.html", title='Register', form=form)

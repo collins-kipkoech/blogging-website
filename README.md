@@ -6,7 +6,7 @@ Blogging Website is a web based platform that a user can make a post and get com
 
 Links
 
-Active link:
+Active link: https://collins-blogging-website.herokuapp.com/
 
 
 Figma link:  https://www.figma.com/proto/c0goWSoqaVa6VMQTeE5CeQ/blogging-website?node-id=1%3A2&scaling=min-zoom
