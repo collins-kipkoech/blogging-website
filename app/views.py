@@ -1,7 +1,7 @@
 from flask import render_template,url_for, flash,redirect, request
 from app import app,db,bcrypt
 from app.forms import RegistrationForm, LoginForm, UpdateProfileForm, PostForm, UpdatePostForm
-from app.models import User, Post
+from app.models import User, Post,Comment
 from flask_login import current_user, login_user, logout_user,login_required
 
 
@@ -66,6 +66,8 @@ def profile():
     """
     function to display and update user profile
     """
+    posts=Post.query.filter_by(user_id=current_user.id)
+ 
     form = UpdateProfileForm()
     if form.validate_on_submit():
         current_user.username = form.username.data        
@@ -74,13 +76,13 @@ def profile():
         
         db.session.commit()
         flash('Your changes have been saved.','success')
-        return redirect(url_for('profile'))
+        return redirect(url_for('.profile'))
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
         
     
-    return render_template('profile.html',title='Edit Profile',form=form)
+    return render_template('profile.html',title='Edit Profile',form=form,posts=posts)
 
 
 
@@ -120,6 +122,17 @@ def update_post():
         
     
     return render_template('post.html',title='Edit Post',form=form)
+
+@app.route('/comment/<int:id>', methods=['GET', 'POST'])
+@login_required
+def comment(id):
+    post=Post.query.filter_by(id=id).first()
+    comment=request.args.get('comment')
+    if comment!=None:
+        new_comment=Comment(text=comment,post=id)
+        db.session.add(new_comment)
+        db.session.commit()
+    return redirect(url_for('.index'))
 
 
 
