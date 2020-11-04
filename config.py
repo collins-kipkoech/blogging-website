@@ -16,7 +16,7 @@ class DevConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:colo1234@localhost/blog'
 
     debug=True
-    SECEET_KEY='1233'
+    SECRET_KEY='1233'
 config_options ={
     'production': ProdConfig,
     'development':DevConfig
